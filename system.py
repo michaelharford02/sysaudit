@@ -7,7 +7,7 @@ def get_hostname() -> str:
     return socket.gethostname()
 
 
-def get_os():
+def get_os() -> str:
     with open("/etc/os-release") as file:
         name: Optional[str] = None
         version: Optional[str] = None
@@ -20,11 +20,11 @@ def get_os():
     return f"{name} {version}"
 
 
-def get_kernel():
+def get_kernel() -> str:
     return os.uname().release
 
 
-def get_uptime():
+def get_uptime() -> tuple[int, int, int, int]:
     with open("/proc/uptime") as file:
         contents = file.read()
         uptime = float(contents.split()[0])

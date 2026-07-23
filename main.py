@@ -1,8 +1,11 @@
+import cpu
+import disk
+import memory
 import system
 
 
 def main():
-    system.get_uptime()
+    disk.get_fs_usage()
 
 
 if __name__ == "__main__":

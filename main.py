@@ -1,6 +1,7 @@
 import cpu
 import disk
 import memory
+import security
 import system
 import systemd
 
@@ -11,12 +12,14 @@ def main():
     memory_info = memory.get_memory_info()
     failed_units = systemd.get_failed_units()
     disk_info = disk.get_fs_usage()
+    selinux_status = security.get_selinux_status()
+    firewalld_status = security.get_firewalld_status()
     print("System Audit Report")
     print("===================")
     print(f"Hostname: {system.get_hostname()}")
     print(f"OS: {system.get_os()}")
     print(f"Kernel: {system.get_kernel()}")
-    print(f"Uptime: {days} days, {hours} hours, {minutes} minutes, {seconds} seconds")
+    print(f"Uptime: {days} d, {hours} h, {minutes} m, {seconds} s")
     print()
     print("CPU")
     print("---")
@@ -40,7 +43,14 @@ def main():
     print()
     print("Security")
     print("--------")
-
+    if selinux_status is None:
+        print("SELinux: Not available")
+    else:
+        print(f"SELinux: {selinux_status}")
+    if firewalld_status is None:
+        print("Firewalld: Not available")
+    else:
+        print(f"Firewalld: {firewalld_status}")
 
 
 if __name__ == "__main__":
